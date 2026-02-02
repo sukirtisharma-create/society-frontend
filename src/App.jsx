@@ -45,20 +45,20 @@ import ParkingList from "./Pages/Parking/ParkingList";
 
 import DocumentsList from "./Pages/Documents/DocumentsList.jsx";
 import AdminUploadDoc from "./Pages/Documents/AdminUploadDoc.jsx";
-import Notifications from "./Pages/Notifications/Notifications";
+import Notifications from "./Pages/Notifications/Notifications.jsx";
 
 /* ================= COMMON ================= */
-import ErrorPage from "./Pages/ErrorPage/ErrorPage";
-import PrivateRoute from "./Components/PrivateRoute";
+import ErrorPage from "./Pages/ErrorPage/ErrorPage.jsx";
+import PrivateRoute from "./Components/PrivateRoute.jsx";
 
 
-import AdminVisitors from "./Pages/AdminVisitors";
+import AdminVisitors from "./Pages/AdminVisitors.jsx";
 
 /* ================= GUARD ================= */
-import GuardDashboard from "./Pages/Guard/GuardDashboard";
-import AddVisitorGuard from "./Pages/Guard/AddVisitor";
-import InsideVisitors from "./Pages/Guard/InsideVisitors";
-import TodayVisitors from "./Pages/Guard/TodayVisitors";
+import GuardDashboard from "./Pages/Guard/GuardDashboard.jsx";
+import AddVisitorGuard from "./Pages/Guard/AddVisitor.jsx";
+import InsideVisitors from "./Pages/Guard/InsideVisitors.jsx";
+import TodayVisitors from "./Pages/Guard/TodayVisitors.jsx";
 
 
 // ⭐ React Toastify
