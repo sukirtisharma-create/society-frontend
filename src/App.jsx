@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // AUTH PAGES
-import Login from "./Pages/Login/Login";
-import Register from "./Pages/Register/Register";
-import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
-import ResetPassword from "./Pages/ForgotPassword/ResetPassword";
+import Login from "./Pages/Login/Login.jsx";
+import Register from "./Pages/Register/Register.jsx";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./Pages/ForgotPassword/ResetPassword.jsx";
 import Home from "./Pages/Home";
 import RegisterSociety from "./Pages/RegisterSociety/RegisterSociety";
 import AboutUs from "./Pages/AboutUs";
@@ -14,38 +14,38 @@ import AdminParking from "./Pages/AdminDashboard/AdminParking";
 
 
 // ADMIN DASHBOARDS
-import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
-import ApproveUsers from "./Pages/AdminDashboard/ApproveUsers";
-import ManageFlats from "./Pages/AdminDashboard/ManageFlats";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard.jsx";
+import ApproveUsers from "./Pages/AdminDashboard/ApproveUsers.jsx";
+import ManageFlats from "./Pages/AdminDashboard/ManageFlats.jsx";
 
 // RESIDENT DASHBOARDS
-import MemberDashboard from "./Pages/MemberDashboard/MemberDashboard";
+import MemberDashboard from "./Pages/MemberDashboard/MemberDashboard.jsx";
 
 // MODULE PAGES
-import Notices from "./Pages/Notices/Notices";
-import AddNotices from "./Pages/Notices/AddNotices";
+import Notices from "./Pages/Notices/Notices.jsx";
+import AddNotices from "./Pages/Notices/AddNotices.jsx";
 
-import Complaints from "./Pages/Complaints/Complaints";
-import AddComplaints from "./Pages/Complaints/AddComplaints";
+import Complaints from "./Pages/Complaints/Complaints.jsx";
+import AddComplaints from "./Pages/Complaints/AddComplaints.jsx";
 
-import Maintenance from "./Pages/Maintenance/Maintenance";
+import Maintenance from "./Pages/Maintenance/Maintenance.jsx";
 
-import MembersDirectory from "./Pages/MembersDirectory/MembersDirectory";
+import MembersDirectory from "./Pages/MembersDirectory/MembersDirectory.jsx";
 
 // AMENITIES
-import AdminAmenities from "./Pages/Amenities/AdminAmenities/AdminAmenities";
-import AdminBookings from "./Pages/Amenities/AdminAmenities/AdminBookings"; // ✅ ADDED
-import ResidentAmenities from "./Pages/Amenities/ResidentAmenities";
-import MyBookings from "./Pages/Amenities/MyBookings";
+import AdminAmenities from "./Pages/Amenities/AdminAmenities/AdminAmenities.jsx";
+import AdminBookings from "./Pages/Amenities/AdminAmenities/AdminBookings.jsx"; // ✅ ADDED
+import ResidentAmenities from "./Pages/Amenities/ResidentAmenities.jsx";
+import MyBookings from "./Pages/Amenities/MyBookings.jsx";
 
-import Profile from "./Pages/Profile/Profile";
+import Profile from "./Pages/Profile/Profile.jsx";
 
 
-import ParkingList from "./Pages/Parking/ParkingList";
+import ParkingList from "./Pages/Parking/ParkingList.jsx";
 
 import DocumentsList from "./Pages/Documents/DocumentsList.jsx";
 import AdminUploadDoc from "./Pages/Documents/AdminUploadDoc.jsx";
-import Notifications from "./Pages/Notifications/Notifications.jsx";
+import SocialNotifications from "./Pages/SocialNotifications/SocialNotifications.jsx";
 
 /* ================= COMMON ================= */
 import ErrorPage from "./Pages/ErrorPage/ErrorPage.jsx";
@@ -218,7 +218,7 @@ function App() {
         <Route path="/documents/upload" element={<AdminUploadDoc />} />
 
         {/* NOTIFICATIONS */}
-        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/notifications" element={<SocialNotifications />} />
 
         {/* ERROR PAGE */}
         <Route path="*" element={<ErrorPage />} />
