@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import DashboardLayout from "../../layouts/DashboardLayout";
-import "./Amenities.css";
 
 export default function ResidentAmenities() {
   const { user } = useAuth();
@@ -30,11 +29,12 @@ export default function ResidentAmenities() {
 
   const fetchData = async () => {
     try {
-      const facRes = await fetch("http://localhost:8080/api/facilities/active", { credentials: "include" });
+      const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const facRes = await fetch(`${baseUrl}/api/facilities/active`, { credentials: "include" });
       const facData = await facRes.json();
       setFacilities(facData || []);
 
-      const bookRes = await fetch("http://localhost:8080/api/bookings/my", { credentials: "include" });
+      const bookRes = await fetch(`${baseUrl}/api/bookings/my`, { credentials: "include" });
       const bookData = await bookRes.json();
       setBookings(bookData || []);
     } catch (err) {

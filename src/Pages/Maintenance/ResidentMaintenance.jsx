@@ -18,7 +18,8 @@ export default function ResidentMaintenance() {
     }
 
     // Fetch maintenance for the user's flat
-    fetch(`http://localhost:8080/api/resident/maintenance/flat/${user.flatId}`, {
+    const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+    fetch(`${baseUrl}/api/resident/maintenance/flat/${user.flatId}`, {
       credentials: "include" // include cookies if needed
     })
       .then(res => res.json())
@@ -93,12 +94,12 @@ export default function ResidentMaintenance() {
                   <td>
                     {item.paymentProof ? (
                       <a
-                        href={`http://localhost:8080/uploads/${item.paymentProof}`}
+                        href={`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/uploads/${item.paymentProof}`}
                         target="_blank"
                         rel="noreferrer"
                       >
                         <img
-                          src={`http://localhost:8080/uploads/${item.paymentProof}`}
+                          src={`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/uploads/${item.paymentProof}`}
                           className="proof-thumb"
                           alt="proof"
                         />
@@ -114,9 +115,8 @@ export default function ResidentMaintenance() {
                   {/* ACTION */}
                   <td>
                     <button
-                      className={`btn success ${
-                        item.paymentStatus !== "PENDING" ? "disabled" : ""
-                      }`}
+                      className={`btn success ${item.paymentStatus !== "PENDING" ? "disabled" : ""
+                        }`}
                       disabled={item.paymentStatus !== "PENDING"}
                       onClick={() => setSelectedMaintenance(item)}
                     >

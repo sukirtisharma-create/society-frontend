@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
-import "./RegisterSociety.css"; 
+import api from "../../api/axios";
+import "./RegisterSociety.css";
 
 export default function RegisterSociety() {
   const navigate = useNavigate();
@@ -70,8 +70,8 @@ export default function RegisterSociety() {
     }
 
     try {
-      await axios.post(
-        "http://localhost:8080/api/public/register-society",
+      await api.post(
+        "/api/public/register-society",
         {
           societyName,
           address,

@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["...", "nodejs"]
+
+[phases.build]
+command = "npm run build"
+
+[phases.deploy]
+command = "npx serve -s dist"

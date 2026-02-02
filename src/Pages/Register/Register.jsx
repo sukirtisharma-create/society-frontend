@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios"; // Make sure axios is installed
+import api from "../../api/axios";
 import "./Register.css";
 
 export default function Register() {
@@ -25,8 +25,8 @@ export default function Register() {
 
   // Fetch societies on mount
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/societies")
+    api
+      .get("/api/societies")
       .then((res) => setSocieties(res.data))
       .catch((err) => toast.error("Failed to fetch societies"));
   }, []);
@@ -96,7 +96,7 @@ export default function Register() {
 
     // 🔹 SEND TO BACKEND
     try {
-      await axios.post("http://localhost:8080/api/auth/register", {
+      await api.post("/api/auth/register", {
         firstName,
         middleName,
         lastName,

@@ -26,7 +26,8 @@ export default function AdminMaintenance() {
   // ================= FETCH =================
   const fetchMaintenance = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/admin/maintenance", {
+      const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const res = await fetch(`${baseUrl}/api/admin/maintenance`, {
         credentials: "include",
       });
       if (!res.ok) throw new Error("Failed to fetch");
@@ -62,9 +63,10 @@ export default function AdminMaintenance() {
     }
 
     const method = editingId ? "PUT" : "POST";
+    const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
     const url = editingId
-      ? `http://localhost:8080/api/admin/maintenance/${editingId}`
-      : "http://localhost:8080/api/admin/maintenance";
+      ? `${baseUrl}/api/admin/maintenance/${editingId}`
+      : `${baseUrl}/api/admin/maintenance`;
 
     try {
       const res = await fetch(url, {
@@ -113,7 +115,8 @@ export default function AdminMaintenance() {
     if (!window.confirm("Delete this maintenance?")) return;
 
     try {
-      await fetch(`http://localhost:8080/api/admin/maintenance/${id}`, {
+      const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      await fetch(`${baseUrl}/api/admin/maintenance/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -132,8 +135,9 @@ export default function AdminMaintenance() {
     }
 
     try {
+      const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
       const res = await fetch(
-        `http://localhost:8080/api/admin/maintenance/${id}/approve`,
+        `${baseUrl}/api/admin/maintenance/${id}/approve`,
         { method: "PUT", credentials: "include" }
       );
 
@@ -232,12 +236,12 @@ export default function AdminMaintenance() {
                   <td>
                     {m.paymentProof ? (
                       <a
-                        href={`http://localhost:8080/uploads/${encodeURIComponent(m.paymentProof)}`}
+                        href={`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/uploads/${encodeURIComponent(m.paymentProof)}`}
                         target="_blank"
                         rel="noreferrer"
                       >
                         <img
-                          src={`http://localhost:8080/uploads/${encodeURIComponent(m.paymentProof)}`}
+                          src={`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}/uploads/${encodeURIComponent(m.paymentProof)}`}
                           alt="proof"
                           style={{
                             width: "90px",
@@ -254,7 +258,7 @@ export default function AdminMaintenance() {
                   <td>
                     {m.transactionId || "-"}
                   </td>
-                  
+
                   <td>
                     <button
                       disabled={!canEdit}

@@ -36,7 +36,7 @@ export default function Navbar({ onToggleSidebar, sidebarOpen }) {
     { path: "/profile", label: "Profile" },
   ];
 
-  const menuItems = user?.role === "admin" ? adminMenuItems : memberMenuItems;
+  const menuItems = user?.role?.toUpperCase() === "ADMIN" ? adminMenuItems : memberMenuItems;
 
   return (
     <nav className="navbar">

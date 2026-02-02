@@ -76,11 +76,11 @@ export default function AdminVisitors() {
                     <td>
                       {v.visitorPhoto ? (
                         <img
-                          src={`http://localhost:8080${v.visitorPhoto}`}
+                          src={`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}${v.visitorPhoto}`}
                           alt={v.visitorName}
                           className="visitor-img clickable"
                           onClick={() =>
-                            setPreviewPhoto(`http://localhost:8080${v.visitorPhoto}`)
+                            setPreviewPhoto(`${import.meta.env.VITE_API_URL || 'http://localhost:8080'}${v.visitorPhoto}`)
                           }
                         />
                       ) : (

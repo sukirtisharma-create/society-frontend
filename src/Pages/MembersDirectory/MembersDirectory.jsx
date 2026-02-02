@@ -13,7 +13,8 @@ export default function MembersDirectory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/members/directory", {
+    const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+    fetch(`${baseUrl}/api/members/directory`, {
       credentials: "include"
     })
       .then(res => res.json())

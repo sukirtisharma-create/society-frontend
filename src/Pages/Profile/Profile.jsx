@@ -56,7 +56,8 @@ export default function Profile() {
       const middleName =
         parts.length > 2 ? parts.slice(1, -1).join(" ") : "";
 
-      const res = await fetch("http://localhost:8080/api/profile", {
+      const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const res = await fetch(`${baseUrl}/api/profile`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

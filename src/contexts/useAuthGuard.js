@@ -5,7 +5,8 @@ export default function useAuthGuard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/auth/me", {
+    const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+    fetch(`${baseUrl}/api/auth/me`, {
       credentials: "include"
     })
       .then(res => {

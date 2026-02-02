@@ -15,21 +15,23 @@ export default function UploadPaymentModal({ maintenance, onClose, onUpload }) {
 
     setLoading(true);
 
-    fetch(`http://localhost:8080/api/resident/maintenance/${maintenance.maintenanceId}/upload-proof`, {
+    const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+    fetch(`${baseUrl}/api/resident/maintenance/${maintenance.maintenanceId}/upload-proof`, {
+
       method: "POST",
       body: formData,
       credentials: "include" // include cookies if auth is required
 
     })
-    .then(res => res.json())
-    .then(updated => {
-      onUpload(updated);
-      setLoading(false);
-    })
-    .catch(err => {
-      console.error(err);
-      setLoading(false);
-    });
+      .then(res => res.json())
+      .then(updated => {
+        onUpload(updated);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   return (
