@@ -44,7 +44,7 @@ import Profile from "./Pages/Profile/Profile";
 import ParkingList from "./Pages/Parking/ParkingList";
 
 import DocumentsList from "./Pages/Documents/DocumentsList.jsx";
-import UploadDocument from "./Pages/Documents/UploadDocument.jsx";
+import AdminUploadDoc from "./Pages/Documents/AdminUploadDoc.jsx";
 import Notifications from "./Pages/Notifications/Notifications";
 
 /* ================= COMMON ================= */
@@ -215,7 +215,7 @@ function App() {
 
         {/* DOCUMENTS */}
         <Route path="/documents" element={<DocumentsList />} />
-        <Route path="/documents/upload" element={<UploadDocument />} />
+        <Route path="/documents/upload" element={<AdminUploadDoc />} />
 
         {/* NOTIFICATIONS */}
         <Route path="/notifications" element={<Notifications />} />
