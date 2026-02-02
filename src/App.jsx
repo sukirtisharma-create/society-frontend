@@ -41,12 +41,12 @@ import MyBookings from "./Pages/Amenities/MyBookings";
 import Profile from "./Pages/Profile/Profile";
 
 
-import ParkingList from "./Pages/parking/ParkingList";
+import ParkingList from "./Pages/Parking/ParkingList";
 
 import DocumentsList from "./Pages/Documents/DocumentsList";
 import UploadDocument from "./Pages/Documents/UploadDocument"; 
 
-import Notifications from "./Pages/notifications/Notifications";
+import Notifications from "./Pages/Notifications/Notifications";
 
 /* ================= COMMON ================= */
 import ErrorPage from "./Pages/ErrorPage/ErrorPage";
