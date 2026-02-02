@@ -43,9 +43,8 @@ import Profile from "./Pages/Profile/Profile";
 
 import ParkingList from "./Pages/Parking/ParkingList";
 
-import DocumentsList from "./Pages/Documents/DocumentsList";
-import UploadDocument from "./Pages/Documents/UploadDocument"; 
-
+import DocumentsList from "./Pages/Documents/DocumentsList.jsx";
+import UploadDocument from "./Pages/Documents/UploadDocument.jsx";
 import Notifications from "./Pages/Notifications/Notifications";
 
 /* ================= COMMON ================= */
@@ -73,7 +72,7 @@ function App() {
 
         {/* AUTH ROUTES */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />        
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
@@ -152,8 +151,8 @@ function App() {
           }
         />
 
-        
-        
+
+
         <Route path="/admin/parking" element={<AdminParking />} />
 
         {/* NOTICES */}
@@ -226,7 +225,7 @@ function App() {
 
       </Routes>
 
-      
+
       <ToastContainer position="top-center" autoClose={1800} pauseOnHover={false} />
 
     </BrowserRouter>
