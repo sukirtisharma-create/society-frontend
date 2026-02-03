@@ -19,7 +19,7 @@ export default function MemberDashboard() {
   const [approvedBookings, setApprovedBookings] = useState(0);
 
 
-const myParking = useMyParking();
+  const myParking = useMyParking();
 
 
   // Redirect if user not logged in
@@ -45,109 +45,109 @@ const myParking = useMyParking();
     loadOpenComplaintCount();
   }, [user]);
 
-    // 🔹 Load notices + activities
-    useEffect(() => {
-      if (!user) return;
+  // 🔹 Load notices + activities
+  useEffect(() => {
+    if (!user) return;
 
-      const notices = JSON.parse(localStorage.getItem("notices") || "[]");
-      const activeNoticesCount = notices.filter(
-        (notice) => notice.status === "active" || !notice.status
-      ).length;
-      setActiveNotices(activeNoticesCount);
+    const notices = JSON.parse(localStorage.getItem("notices") || "[]");
+    const activeNoticesCount = notices.filter(
+      (notice) => notice.status === "active" || !notice.status
+    ).length;
+    setActiveNotices(activeNoticesCount);
 
-      const activities = [];
-      notices.slice(0, 3).forEach((notice) => {
-        activities.push({
-          id: `notice-${notice.id}`,
+    const activities = [];
+    notices.slice(0, 3).forEach((notice) => {
+      activities.push({
+        id: `notice-${notice.id}`,
+        text: `New Notice: ${notice.title || "UrbanNest Notice"}`,
+        time: notice.createdAt
+          ? new Date(notice.createdAt).toLocaleDateString()
+          : "Recently",
+        type: "notice",
+      });
+    });
+
+    setRecentActivities(activities);
+  }, [user]);
+
+  // 🔹 Load pending maintenance from backend
+  useEffect(() => {
+    const flatId = user?.flatId || user?.flat?.flatId;
+    if (!flatId) return;
+
+    const fetchPendingMaintenance = async () => {
+      try {
+        const res = await api.get(`/api/resident/maintenance/flat/${flatId}/pending`);
+        setPendingMaintenance(res.data); // will be null if none pending
+      } catch (err) {
+        console.error("Failed to fetch pending maintenance", err);
+      }
+    };
+
+    fetchPendingMaintenance();
+  }, [user]);
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "-";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  // 🔹 Load notices + activities from backend
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchNotices = async () => {
+      try {
+        const res = await api.get("/api/notices"); // backend call
+        const notices = res.data || [];
+
+        // Active notices
+        const activeNoticesCount = notices.length; // all notices are active by default
+        setActiveNotices(activeNoticesCount);
+
+        // Recent activities (last 3 notices)
+        const activities = notices.slice(0, 3).map((notice) => ({
+          id: `notice-${notice.noticeId}`,
           text: `New Notice: ${notice.title || "UrbanNest Notice"}`,
           time: notice.createdAt
             ? new Date(notice.createdAt).toLocaleDateString()
             : "Recently",
           type: "notice",
-        });
-      });
-
-      setRecentActivities(activities);
-    }, [user]);
-
-    // 🔹 Load pending maintenance from backend
-    useEffect(() => {
-      const flatId = user?.flatId || user?.flat?.flatId;
-      if (!flatId) return;
-
-      const fetchPendingMaintenance = async () => {
-        try {
-          const res = await api.get(`/api/resident/maintenance/flat/${flatId}/pending`);
-          setPendingMaintenance(res.data); // will be null if none pending
-        } catch (err) {
-          console.error("Failed to fetch pending maintenance", err);
-        }
-      };
-
-      fetchPendingMaintenance();
-    }, [user]);
-
-    const formatDate = (dateString) => {
-      if (!dateString) return "-";
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
+        }));
+        setRecentActivities(activities);
+      } catch (err) {
+        console.error("Failed to fetch notices", err);
+        setActiveNotices(0);
+        setRecentActivities([]);
+      }
     };
 
-      // 🔹 Load notices + activities from backend
-    useEffect(() => {
-      if (!user) return;
-
-      const fetchNotices = async () => {
-        try {
-          const res = await api.get("/api/notices"); // backend call
-          const notices = res.data || [];
-
-          // Active notices
-          const activeNoticesCount = notices.length; // all notices are active by default
-          setActiveNotices(activeNoticesCount);
-
-          // Recent activities (last 3 notices)
-          const activities = notices.slice(0, 3).map((notice) => ({
-            id: `notice-${notice.noticeId}`,
-            text: `New Notice: ${notice.title || "UrbanNest Notice"}`,
-            time: notice.createdAt
-              ? new Date(notice.createdAt).toLocaleDateString()
-              : "Recently",
-            type: "notice",
-          }));
-          setRecentActivities(activities);
-        } catch (err) {
-          console.error("Failed to fetch notices", err);
-          setActiveNotices(0);
-          setRecentActivities([]);
-        }
-      };
-
-      fetchNotices();
-    }, [user]);
+    fetchNotices();
+  }, [user]);
 
 
-    // 🔹 Load approved amenity bookings count
-    useEffect(() => {
-      if (!user) return;
+  // 🔹 Load approved amenity bookings count
+  useEffect(() => {
+    if (!user) return;
 
-      const fetchApprovedBookings = async () => {
-        try {
-          const res = await api.get("/api/bookings/my/approved/count");
-          setApprovedBookings(res.data || 0);
-        } catch (err) {
-          console.error("Failed to fetch approved bookings count", err);
-        }
-      };
+    const fetchApprovedBookings = async () => {
+      try {
+        const res = await api.get("/api/bookings/my/approved/count");
+        setApprovedBookings(res.data || 0);
+      } catch (err) {
+        console.error("Failed to fetch approved bookings count", err);
+      }
+    };
 
-      fetchApprovedBookings();
-    }, [user]);
+    fetchApprovedBookings();
+  }, [user]);
 
-    
+
 
   if (loading || !user) {
     return (
@@ -161,83 +161,77 @@ const myParking = useMyParking();
 
   return (
     <DashboardLayout>
-      <div className="member-dashboard">
+      <div className="member-dashboard animate-fade-in">
         {/* Welcome Section */}
         <div className="welcome-section">
           <h1 className="welcome-title">
-            Welcome back, {user.firstName || "Member"}!
+            Member Hub
           </h1>
           <p className="welcome-subtitle">
-            Here's what's happening in your UrbanNest community today.
+            Welcome back, {user.firstName}. Here is your community overview.
           </p>
         </div>
 
         {/* Stat Cards */}
         <div className="stats-grid">
-          {/* 🔹 OPEN COMPLAINTS */}
           <Card
-            className="stat-card complaints-card clickable"
+            className="stat-card complaints-card"
             onClick={() => navigate("/complaints?status=OPEN")}
           >
             <div className="stat-icon">
               <FaExclamationTriangle />
             </div>
             <div className="stat-content">
-              <h3 className="stat-label">Open Complaints</h3>
+              <h3 className="stat-label">Pending Issues</h3>
               <p className="stat-value">{openComplaints}</p>
             </div>
           </Card>
 
-          {/* 🔹 DUE MAINTENANCE */}
           <Card
-            className="stat-card maintenance-card clickable"
+            className="stat-card maintenance-card"
             onClick={() => navigate("/maintenance")}
           >
             <div className="stat-icon"><FaCreditCard /></div>
             <div className="stat-content">
-              <h3 className="stat-label">Due Maintenance</h3>
+              <h3 className="stat-label">Dues Amount</h3>
               <p className="stat-value">
                 ₹{pendingMaintenance?.amount?.toLocaleString() || 0}
               </p>
               {pendingMaintenance && (
                 <p className="stat-subtext">
-                  Due: {formatDate(pendingMaintenance.dueDate)}
+                  Pay by: {formatDate(pendingMaintenance.dueDate)}
                 </p>
               )}
             </div>
           </Card>
 
-          {/* 🔹 UPCOMING EVENTS */}
           <Card
-            className="stat-card events-card clickable"
+            className="stat-card events-card"
             onClick={() => navigate("/amenities/my-bookings")}
           >
             <div className="stat-icon"><FaCalendar /></div>
             <div className="stat-content">
-              <h3 className="stat-label">Approved Bookings</h3>
+              <h3 className="stat-label">My Bookings</h3>
               <p className="stat-value">{approvedBookings}</p>
             </div>
           </Card>
 
-          {/* 🔹 ACTIVE NOTICES */}
           <Card
-            className="stat-card notices-card clickable"
-            onClick={() => navigate("/notices")} // <-- Add this line
+            className="stat-card notices-card"
+            onClick={() => navigate("/notices")}
           >
             <div className="stat-icon"><FaBell /></div>
             <div className="stat-content">
-              <h3 className="stat-label">Active Notices</h3>
+              <h3 className="stat-label">Latest Notices</h3>
               <p className="stat-value">{activeNotices}</p>
             </div>
           </Card>
         </div>
 
-
-
         {/* Main Content Row */}
         <div className="content-row">
-          <Card className="activities-card">
-            <h2 className="section-title">Recent Activities</h2>
+          <div className="activities-card">
+            <h2 className="section-title">Community Timeline</h2>
             <div className="activities-list">
               {recentActivities.length > 0 ? (
                 recentActivities.map((activity) => (
@@ -250,45 +244,40 @@ const myParking = useMyParking();
                   </div>
                 ))
               ) : (
-                <p className="empty-state">No recent activities</p>
+                <p className="empty-state">No recent activities available</p>
               )}
             </div>
-          </Card>
+          </div>
 
-          {/* 🔹 MY PARKING */}
-          <Card className="stat-card parking-card">
+          <div className="parking-card">
             <div className="stat-icon">🚗</div>
-            <div className="stat-content">
-              <h3 className="stat-label">My Parking</h3>
-              {myParking?.parkingSlots?.length > 0 ? (
-                (() => {
-                  const slot = myParking.parkingSlots[0];
-                  return (
-                    <>
-                      <p className="stat-value">{slot.slotNumber}</p>
-                      <p
-                        className={`stat-subtext ${
-                          slot.status === "FREE" ? "status-free" : "status-occupied"
-                        }`}
-                      >
-                        {slot.status}
-                      </p>
-                      <p className="stat-subtext">
-                        {slot.vehicleType.replace("_", " ")}
-                      </p>
-                    </>
-                  );
-                })()
-              ) : (
-                <p className="stat-subtext">No parking assigned</p>
-              )}
-            </div>
-          </Card>
-
-
-
+            <h3 className="stat-label">Parking Status</h3>
+            {myParking?.parkingSlots?.length > 0 ? (
+              (() => {
+                const slot = myParking.parkingSlots[0];
+                return (
+                  <div className="parking-details">
+                    <p className="stat-value">{slot.slotNumber}</p>
+                    <span
+                      className={
+                        slot.status === "FREE" ? "status-free" : "status-occupied"
+                      }
+                    >
+                      {slot.status}
+                    </span>
+                    <p className="stat-subtext">
+                      {slot.vehicleType.replace("_", " ")}
+                    </p>
+                  </div>
+                );
+              })()
+            ) : (
+              <p className="stat-subtext">No assigned parking found</p>
+            )}
+          </div>
         </div>
       </div>
     </DashboardLayout>
+
   );
 }

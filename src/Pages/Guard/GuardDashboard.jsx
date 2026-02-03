@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GuardLayout from "../../layouts/GuardLayout";
 import api from "../../api/axios";
+import "./GuardDashboard.css";
 
 export default function GuardDashboard() {
   const [insideCount, setInsideCount] = useState(0);
@@ -18,32 +19,27 @@ export default function GuardDashboard() {
 
   return (
     <GuardLayout>
-      <h2>Guard Dashboard</h2>
+      <div className="guard-dashboard animate-fade-in">
+        <h2 className="guard-title">Security Overview</h2>
 
-      <div style={{ display: "flex", gap: "20px" }}>
-        <div style={card}>
-          <h3>{insideCount}</h3>
-          <p>Visitors Inside</p>
-        </div>
+        <div className="summary-grid">
+          <div className="summary-card blue">
+            <h3>{insideCount}</h3>
+            <p>Visitors Inside</p>
+          </div>
 
-        <div style={cardGreen}>
-          <h3>{todayCount}</h3>
-          <p>Today Visitors</p>
+          <div className="summary-card green">
+            <h3>{todayCount}</h3>
+            <p>Total Visitors Today</p>
+          </div>
+
+          <div className="summary-card amber">
+            <h3>Active</h3>
+            <p>System Status</p>
+          </div>
         </div>
       </div>
     </GuardLayout>
   );
 }
 
-const card = {
-  background: "white",
-  padding: "20px",
-  width: "220px",
-  borderRadius: "10px",
-  boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-};
-
-const cardGreen = {
-  ...card,
-  borderLeft: "6px solid #16a34a",
-};

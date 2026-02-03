@@ -14,8 +14,8 @@ import "./AdminDashboard.css";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-  const { user } = useAuth();   
-  const societyId = user?.societyId; 
+  const { user } = useAuth();
+  const societyId = user?.societyId;
 
 
   // ===============================
@@ -52,84 +52,69 @@ export default function AdminDashboard() {
   }, []);
 
   // Notice Bucket
-    const [noticeCount, setNoticeCount] = useState(0);
-    useEffect(() => {
-      api.get(`/api/admin/notices/count`)
-        .then(res => setNoticeCount(res.data))
-        .catch(() => setNoticeCount(0));
-    }, []);
+  const [noticeCount, setNoticeCount] = useState(0);
+  useEffect(() => {
+    api.get(`/api/admin/notices/count`)
+      .then(res => setNoticeCount(res.data))
+      .catch(() => setNoticeCount(0));
+  }, []);
 
 
-    //Pending Complaints Count
-    const [pendingComplaintCount, setPendingComplaintCount] = useState(0);
+  //Pending Complaints Count
+  const [pendingComplaintCount, setPendingComplaintCount] = useState(0);
 
-    useEffect(() => {
-      api
-        .get(`/complaints/pending/count`)
-        .then((res) => setPendingComplaintCount(res.data.count))
-        .catch(() => setPendingComplaintCount(0));
-    }, []);
+  useEffect(() => {
+    api
+      .get(`/complaints/pending/count`)
+      .then((res) => setPendingComplaintCount(res.data.count))
+      .catch(() => setPendingComplaintCount(0));
+  }, []);
 
 
-    
+
   return (
     <DashboardLayout>
-      <div className="member-dashboard">
-
-        {/* ===============================
-            Welcome Section
-        =============================== */}
+      <div className="member-dashboard animate-fade-in">
         <div className="welcome-section">
-          <h1 className="welcome-title">Admin Dashboard</h1>
+          <h1 className="welcome-title">Society Admin</h1>
           <p className="welcome-subtitle">
-            Manage your society efficiently from one place
+            Manage your society's operations and residents with ease.
           </p>
         </div>
 
-        {/* ===============================
-            Dashboard Cards
-        =============================== */}
         <div className="stats-grid">
-
-          {/* Pending Approvals */}
           <Card
-            className="stat-card complaints-card clickable"
+            className="stat-card complaints-card"
             onClick={() => navigate("/admin/approve-users")}
           >
             <div className="stat-icon">
               <FaUsers />
             </div>
             <div className="stat-content">
-              <p className="stat-label">Pending Approvals</p>
+              <p className="stat-label">Member Requests</p>
               <h3 className="stat-value">{pendingApprovals}</h3>
+              <p className="stat-subtext">Awaiting approval</p>
             </div>
           </Card>
 
-          {/* Total Flats */}
           <Card
-            className="stat-card maintenance-card clickable"
+            className="stat-card maintenance-card"
             onClick={() => navigate("/admin/manage-flats")}
           >
             <div className="stat-icon">
               <FaHome />
             </div>
             <div className="stat-content">
-              <p className="stat-label">Total Flats</p>
-
-              <h3 className="stat-value">
-                {flatStats.totalFlats}
-              </h3>
-
+              <p className="stat-label">Inventory</p>
+              <h3 className="stat-value">{flatStats.totalFlats}</h3>
               <p className="stat-subtext">
-                {flatStats.occupiedFlats} Occupied ·{" "}
-                {flatStats.vacantFlats} Vacant
+                {flatStats.occupiedFlats} Active · {flatStats.vacantFlats} Vacant
               </p>
             </div>
           </Card>
 
-          {/* Active Notices (later API) */}
-          <Card   
-            className="stat-card notices-card clickable"
+          <Card
+            className="stat-card notices-card"
             onClick={() => navigate("/notices")}
           >
             <div className="stat-icon">
@@ -138,64 +123,58 @@ export default function AdminDashboard() {
             <div className="stat-content">
               <p className="stat-label">Active Notices</p>
               <h3 className="stat-value">{noticeCount}</h3>
+              <p className="stat-subtext">Community updates</p>
             </div>
           </Card>
 
-          {/* Pending Complaints (later API) */}
           <Card
-            className="stat-card events-card clickable"
+            className="stat-card events-card"
             onClick={() => navigate("/complaints")}
           >
             <div className="stat-icon">
               <FaExclamationTriangle />
             </div>
-
             <div className="stat-content">
-              <p className="stat-label">Pending Complaints</p>
+              <p className="stat-label">Open Issues</p>
               <h3 className="stat-value">{pendingComplaintCount}</h3>
+              <p className="stat-subtext">Pending resolution</p>
             </div>
           </Card>
         </div>
 
-        {/* ===============================
-            Quick Actions
-        =============================== */}
         <div className="content-row">
-          <Card className="events-card-list">
-            <h2 className="section-title">Quick Actions</h2>
-
+          <div className="events-card-list">
+            <h2 className="section-title">Quick Management Hub</h2>
             <div className="events-list">
               <button
                 className="admin-action-btn"
                 onClick={() => navigate("/admin/approve-users")}
               >
-                Approve Users
+                <FaUsers /> Review Approvals
               </button>
-
               <button
                 className="admin-action-btn"
                 onClick={() => navigate("/admin/manage-flats?add=true")}
               >
-                Add Flat
+                <FaHome /> Register Property
               </button>
               <button
                 className="admin-action-btn"
                 onClick={() => navigate("/notices/add")}
               >
-                Add Notice
+                <FaBell /> Post Update
               </button>
               <button
                 className="admin-action-btn"
                 onClick={() => navigate("/complaints")}
               >
-                View Complaints
+                <FaExclamationTriangle /> Support Desk
               </button>
-
             </div>
-          </Card>
+          </div>
         </div>
-
       </div>
+
     </DashboardLayout>
   );
 }
