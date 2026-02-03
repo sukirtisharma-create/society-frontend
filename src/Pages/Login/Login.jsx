@@ -55,7 +55,7 @@ export default function Login() {
       login(loggedUser);
 
       toast.success("Login successful!");
-      
+
       // 🔹 Redirect manually (optional, useEffect will also redirect)
       if (loggedUser.role === "ADMIN") {
         navigate("/admin/dashboard");
@@ -70,8 +70,10 @@ export default function Login() {
       if (error.response?.status === 401) {
         toast.error("Invalid email or password");
       } else {
-        toast.error("Login failed. Please try again.");
+        const errorMsg = error.response?.data?.message || "Login failed. Please try again.";
+        toast.error(errorMsg);
       }
+
     }
   };
 
