@@ -119,145 +119,166 @@ export default function Register() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page animate-fade-in">
       <div className="auth-card">
-        <h2 className="auth-title">Register</h2>
-        <p className="auth-subtitle">Create your account</p>
+        <h2 className="auth-title">Join UrbanNest</h2>
+        <p className="auth-subtitle">Create an account to manage your society experience</p>
 
         <form className="auth-form" onSubmit={handleRegister}>
-          {/* FIRST NAME */}
-          <label className="auth-label">First Name *</label>
-          <input
-            name="firstName"
-            className="auth-input"
-            type="text"
-            placeholder="Enter first name"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-          {errors.firstName && <p className="auth-error">{errors.firstName}</p>}
+          <div className="form-grid">
+            {/* FIRST NAME */}
+            <div className="form-group">
+              <label className="auth-label">First Name *</label>
+              <input
+                name="firstName"
+                className="auth-input"
+                type="text"
+                placeholder="John"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+              {errors.firstName && <p className="auth-error">{errors.firstName}</p>}
+            </div>
 
-          {/* MIDDLE NAME */}
-          <label className="auth-label">Middle Name</label>
-          <input
-            name="middleName"
-            className="auth-input"
-            type="text"
-            placeholder="Enter middle name"
-            value={formData.middleName}
-            onChange={handleChange}
-          />
+            {/* MIDDLE NAME */}
+            <div className="form-group">
+              <label className="auth-label">Middle Name</label>
+              <input
+                name="middleName"
+                className="auth-input"
+                type="text"
+                placeholder="Optional"
+                value={formData.middleName}
+                onChange={handleChange}
+              />
+            </div>
 
-          {/* LAST NAME */}
-          <label className="auth-label">Last Name *</label>
-          <input
-            name="lastName"
-            className="auth-input"
-            type="text"
-            placeholder="Enter last name"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-          {errors.lastName && <p className="auth-error">{errors.lastName}</p>}
+            {/* LAST NAME */}
+            <div className="form-group">
+              <label className="auth-label">Last Name *</label>
+              <input
+                name="lastName"
+                className="auth-input"
+                type="text"
+                placeholder="Doe"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+              {errors.lastName && <p className="auth-error">{errors.lastName}</p>}
+            </div>
 
-          {/* EMAIL */}
-          <label className="auth-label">Email *</label>
-          <input
-            name="email"
-            className="auth-input"
-            type="email"
-            placeholder="Enter email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          {errors.email && <p className="auth-error">{errors.email}</p>}
+            {/* EMAIL */}
+            <div className="form-group">
+              <label className="auth-label">Email *</label>
+              <input
+                name="email"
+                className="auth-input"
+                type="email"
+                placeholder="john@example.com"
+                value={formData.email}
+                onChange={handleChange}
+              />
+              {errors.email && <p className="auth-error">{errors.email}</p>}
+            </div>
 
-          {/* PHONE */}
-          <label className="auth-label">Phone Number *</label>
-          <input
-            name="phone"
-            className="auth-input"
-            type="text"
-            placeholder="Enter 10-digit phone number"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-          {errors.phone && <p className="auth-error">{errors.phone}</p>}
+            {/* PHONE */}
+            <div className="form-group">
+              <label className="auth-label">Phone Number *</label>
+              <input
+                name="phone"
+                className="auth-input"
+                type="text"
+                placeholder="10-digit mobile"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+              {errors.phone && <p className="auth-error">{errors.phone}</p>}
+            </div>
 
-          {/* SOCIETY DROPDOWN */}
-          <label className="auth-label">Society *</label>
-          <select
-            name="societyId"
-            className="auth-input"
-            value={formData.societyId}
-            onChange={handleChange}
-          >
-            <option value="">-- Select Society --</option>
-            {societies.map((society) => (
-              <option key={society.societyId} value={society.societyId}>
-                {society.societyName}
-              </option>
-            ))}
-          </select>
-          {errors.societyId && <p className="auth-error">{errors.societyId}</p>}
+            {/* SOCIETY DROPDOWN */}
+            <div className="form-group">
+              <label className="auth-label">Society *</label>
+              <select
+                name="societyId"
+                className="auth-input"
+                value={formData.societyId}
+                onChange={handleChange}
+              >
+                <option value="">-- Select Society --</option>
+                {societies.map((society) => (
+                  <option key={society.societyId} value={society.societyId}>
+                    {society.societyName}
+                  </option>
+                ))}
+              </select>
+              {errors.societyId && <p className="auth-error">{errors.societyId}</p>}
+            </div>
 
-          {/* ROLE DROPDOWN */}
-          <label className="auth-label">Role *</label>
-          <select
-            name="role"
-            className="auth-input"
-            value={formData.role}
-            onChange={handleChange}
-          >
-            <option value="">-- Select Role --</option>
-            {roles.map((role) => (
-              <option key={role} value={role}>
-                {role}
-              </option>
-            ))}
-          </select>
-          {errors.role && <p className="auth-error">{errors.role}</p>}
+            {/* ROLE DROPDOWN */}
+            <div className="form-group">
+              <label className="auth-label">Role *</label>
+              <select
+                name="role"
+                className="auth-input"
+                value={formData.role}
+                onChange={handleChange}
+              >
+                <option value="">-- Select Role --</option>
+                {roles.map((role) => (
+                  <option key={role} value={role}>
+                    {role}
+                  </option>
+                ))}
+              </select>
+              {errors.role && <p className="auth-error">{errors.role}</p>}
+            </div>
 
-          {/* PASSWORD */}
-          <label className="auth-label">Password *</label>
-          <input
-            name="password"
-            className="auth-input"
-            type="password"
-            placeholder="Enter password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          {errors.password && <p className="auth-error">{errors.password}</p>}
+            {/* PASSWORD */}
+            <div className="form-group">
+              <label className="auth-label">Password *</label>
+              <input
+                name="password"
+                className="auth-input"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password}
+                onChange={handleChange}
+              />
+              {errors.password && <p className="auth-error">{errors.password}</p>}
+            </div>
 
-          {/* CONFIRM PASSWORD */}
-          <label className="auth-label">Confirm Password *</label>
-          <input
-            name="confirmPassword"
-            className="auth-input"
-            type="password"
-            placeholder="Re-enter password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          {errors.confirmPassword && (
-            <p className="auth-error">{errors.confirmPassword}</p>
-          )}
+            {/* CONFIRM PASSWORD */}
+            <div className="form-group">
+              <label className="auth-label">Confirm Password *</label>
+              <input
+                name="confirmPassword"
+                className="auth-input"
+                type="password"
+                placeholder="••••••••"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+              />
+              {errors.confirmPassword && (
+                <p className="auth-error">{errors.confirmPassword}</p>
+              )}
+            </div>
+          </div>
 
           {/* REGISTER BUTTON */}
           <button className="auth-button" type="submit">
-            Register
+            Create Account
           </button>
 
           {/* REDIRECT */}
           <p className="auth-footer">
-            Already have an account?{" "}
-            <Link to="/" className="auth-link">
-              Login
+            Already part of a society?{" "}
+            <Link to="/login" className="auth-link">
+              Login here
             </Link>
           </p>
         </form>
       </div>
     </div>
+
   );
 }

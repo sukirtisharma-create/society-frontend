@@ -78,63 +78,70 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h2 className="auth-title">Login</h2>
-        <p className="auth-subtitle">Sign in to continue</p>
+    <div className="auth-page animate-fade-in">
+      <div className="auth-card login-card">
+        <h2 className="auth-title">Welcome Back</h2>
+        <p className="auth-subtitle">Sign in to your society portal</p>
 
         <form className="auth-form" onSubmit={handleLogin}>
           {/* EMAIL */}
-          <label className="auth-label">Email *</label>
-          <input
-            className="auth-input"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setErrors({});
-            }}
-          />
-          {errors.email && <p className="auth-error">{errors.email}</p>}
+          <div className="form-group">
+            <label className="auth-label">Email Address *</label>
+            <input
+              className="auth-input"
+              type="email"
+              placeholder="name@example.com"
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrors({});
+              }}
+            />
+            {errors.email && <p className="auth-error">{errors.email}</p>}
+          </div>
 
           {/* PASSWORD */}
-          <label className="auth-label">Password *</label>
-          <input
-            className="auth-input"
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setErrors({});
-            }}
-          />
-          {errors.password && <p className="auth-error">{errors.password}</p>}
+          <div className="form-group">
+            <label className="auth-label">Password *</label>
+            <input
+              className="auth-input"
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrors({});
+              }}
+            />
+            {errors.password && <p className="auth-error">{errors.password}</p>}
+          </div>
 
           {/* FORGOT PASSWORD */}
           <div className="auth-forgot">
-            <Link to="/forgot-password">Forgot Password?</Link>
+            <Link to="/forgot-password">Trouble signing in?</Link>
           </div>
 
           {/* LOGIN BUTTON */}
           <button className="auth-button" type="submit">
-            Login
+            Sign In
           </button>
 
           {/* FOOTER */}
           <p className="auth-footer">
-            Don’t have an account?
+            New to UrbanNest?{" "}
             <Link className="auth-link" to="/register">
-              Register
+              Create an account
             </Link>
           </p>
         </form>
 
         <div className="auth-demo-info">
-          <p><strong>Member Login:</strong> Use your registered email (must be approved by admin)</p>
+          <p>
+            <strong>Pro Tip:</strong> Only approved members and guards can access their dashboards.
+          </p>
         </div>
       </div>
     </div>
+
   );
 }
